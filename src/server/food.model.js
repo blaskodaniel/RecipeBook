@@ -5,7 +5,11 @@ var foodSchema = mongoose.Schema({
     name: String,
     category: Number,
     descripton: String,
-    ingredients: [String]
+    ingredients: [String],
+    createdate: Date,
+    moifydate: Date,
+    createuser: String,
+    modifyuser: String
 });
 
 var Food = mongoose.model('Food', foodSchema);

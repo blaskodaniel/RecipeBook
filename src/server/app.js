@@ -19,7 +19,7 @@ var db = mongoose.connection;
 mongoose.Promise = global.Promise;
 
 // Models
-var Cat = require('./cat.model.js');
+var Food = require('./food.model.js');
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -27,7 +27,7 @@ db.once('open', function() {
 
     // APIs
     // select all
-    app.get('/cats', function(req, res) {
+    app.get('/food', function(req, res) {
         Cat.find({}, function(err, docs) {
             if (err) return console.error(err);
             res.json(docs);
@@ -35,7 +35,7 @@ db.once('open', function() {
     });
 
     // count all
-    app.get('/cats/count', function(req, res) {
+    app.get('/foods/count', function(req, res) {
         Cat.count(function(err, count) {
             if (err) return console.error(err);
             res.json(count);
@@ -43,7 +43,7 @@ db.once('open', function() {
     });
 
     // create
-    app.post('/cat', function(req, res) {
+    app.post('/food', function(req, res) {
         var obj = new Cat(req.body);
         obj.save(function(err, obj) {
             if (err) return console.error(err);
@@ -52,7 +52,7 @@ db.once('open', function() {
     });
 
     // find by id
-    app.get('/cat/:id', function(req, res) {
+    app.get('/food/:id', function(req, res) {
         Cat.findOne({ _id: req.params.id }, function(err, obj) {
             if (err) return console.error(err);
             res.json(obj);
@@ -60,7 +60,7 @@ db.once('open', function() {
     });
 
     // update by id
-    app.put('/cat/:id', function(req, res) {
+    app.put('/food/:id', function(req, res) {
         Cat.findOneAndUpdate({ _id: req.params.id }, req.body, function(err) {
             if (err) return console.error(err);
             res.sendStatus(200);
@@ -68,7 +68,7 @@ db.once('open', function() {
     });
 
     // delete by id
-    app.delete('/cat/:id', function(req, res) {
+    app.delete('/food/:id', function(req, res) {
         Cat.findOneAndRemove({ _id: req.params.id }, function(err) {
             if (err) return console.error(err);
             res.sendStatus(200);
