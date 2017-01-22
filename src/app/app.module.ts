@@ -9,12 +9,18 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
 import { FilterComponent } from './filter/filter.component';
+import { CreateComponent } from './create/create.component';
 
 const appRoutes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
     data: { title: 'Főmenü' }
+  },
+  {
+    path: 'create',
+    component: CreateComponent,
+    data: { title: 'Új recept' }
   },
   { path: '**', component: HomeComponent }
 ];
@@ -24,6 +30,7 @@ const appRoutes: Routes = [
     AppComponent,
     NavigationComponent,
     HomeComponent,
+    CreateComponent,
     FilterComponent
   ],
   imports: [

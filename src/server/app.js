@@ -14,12 +14,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/test');
+mongoose.connect('mongodb://localhost:27017/testkonyv');
 var db = mongoose.connection;
 mongoose.Promise = global.Promise;
 
 // Models
-var Food = require('./food.model.js');
+var Food = require('./models/food.model.js');
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -28,7 +28,7 @@ db.once('open', function() {
     // APIs
     // select all
     app.get('/food', function(req, res) {
-        Cat.find({}, function(err, docs) {
+        Food.find({}, function(err, docs) {
             if (err) return console.error(err);
             res.json(docs);
         });
@@ -36,7 +36,7 @@ db.once('open', function() {
 
     // count all
     app.get('/foods/count', function(req, res) {
-        Cat.count(function(err, count) {
+        Food.count(function(err, count) {
             if (err) return console.error(err);
             res.json(count);
         });
@@ -44,7 +44,7 @@ db.once('open', function() {
 
     // create
     app.post('/food', function(req, res) {
-        var obj = new Cat(req.body);
+        var obj = new Food(req.body);
         obj.save(function(err, obj) {
             if (err) return console.error(err);
             res.status(200).json(obj);
@@ -53,7 +53,7 @@ db.once('open', function() {
 
     // find by id
     app.get('/food/:id', function(req, res) {
-        Cat.findOne({ _id: req.params.id }, function(err, obj) {
+        Food.findOne({ _id: req.params.id }, function(err, obj) {
             if (err) return console.error(err);
             res.json(obj);
         })
@@ -61,7 +61,7 @@ db.once('open', function() {
 
     // update by id
     app.put('/food/:id', function(req, res) {
-        Cat.findOneAndUpdate({ _id: req.params.id }, req.body, function(err) {
+        Food.findOneAndUpdate({ _id: req.params.id }, req.body, function(err) {
             if (err) return console.error(err);
             res.sendStatus(200);
         })
@@ -69,7 +69,7 @@ db.once('open', function() {
 
     // delete by id
     app.delete('/food/:id', function(req, res) {
-        Cat.findOneAndRemove({ _id: req.params.id }, function(err) {
+        Food.findOneAndRemove({ _id: req.params.id }, function(err) {
             if (err) return console.error(err);
             res.sendStatus(200);
         });
