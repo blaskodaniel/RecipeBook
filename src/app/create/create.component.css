@@ -1,4 +1,28 @@
 .addbutton {
     font-size: 22px;
     margin-top: 5px;
+    color: green;
+    cursor: pointer;
+}
+
+.removebutton {
+    font-size: 22px;
+    margin-top: 5px;
+    color: red;
+    cursor: pointer;
+}
+
+.hozzavaloklista li {
+    list-style-type: none;
+}
+
+.hozzavaloklista span {
+    font-size: 20px;
+    display: inline-block;
+    min-width: 290px;
+}
+
+.emptyarray {
+    padding: 10px;
+    font-style: italic;
 }
