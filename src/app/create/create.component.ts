@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Hozzavalo } from './../../models/hozzavalo.model';
 
 @Component({
     selector: 'createrecipe',
@@ -8,15 +9,18 @@ import { Component } from '@angular/core';
 
 export class CreateComponent{
     private food: Array<String>;
-    private counter: Array<Number>;
+    private counter: Number;
+    private hozzavalo: Hozzavalo;
+    recipename: String;
 
     constructor(){
-        this.counter = [1];
-        this.food = []
+        this.counter = 1;
+        this.hozzavalo = new Hozzavalo();
     }
 
-    newItem($event,item){
-        console.log(item);
+    newItem($event){
+        console.log("Új hozzávaló:");
+        this.hozzavalo.name = "1 kg burgonya";
     }
 
 }
