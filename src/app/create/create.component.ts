@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Http } from '@angular/http';
+import { FormGroup, FormControl, Validators, FormBuilder }  from '@angular/forms';
+import { DataService } from '../services/data.service';
 import { Hozzavalo } from './../../models/hozzavalo.model';
 
 @Component({
@@ -8,13 +11,15 @@ import { Hozzavalo } from './../../models/hozzavalo.model';
 })
 
 export class CreateComponent implements OnInit{
+    isLoading = true;
+    isEditing = false;
     private food: Array<String>;
     private counter: Number;
     private hozzavalo: Hozzavalo;
     recipename: String;ujhozzavalo:String;
     private hozzavalok: Array<Hozzavalo>;
 
-    constructor(){
+    constructor(private http: Http,private dataService: DataService){
         this.counter = 1;
         this.hozzavalo = new Hozzavalo();
         this.hozzavalo.name = "";
@@ -27,6 +32,7 @@ export class CreateComponent implements OnInit{
         newitem.name = item;
         this.hozzavalok.push(newitem);
         this.ujhozzavalo = "";
+        
     }
 
     removeItem(item){
@@ -36,5 +42,23 @@ export class CreateComponent implements OnInit{
 
     ngOnInit() {
         console.log(this.hozzavalok.length);
+        this.getRecipes();    
     }
+
+    getRecipes() {
+        this.dataService.getRecipes().subscribe(
+            data => {this.food = data;console.log(data);},
+            error => console.log(error),
+            () => this.isLoading = false
+        );
+    }
+
+    addRecipe(recipe) {
+    this.dataService.addRecipe(recipe).subscribe(
+      res => {
+        console.log("Sikeresen mentve lett a recept!");
+      },
+      error => console.log(error)
+    );
+  }
 }

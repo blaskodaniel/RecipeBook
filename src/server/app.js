@@ -19,7 +19,7 @@ var db = mongoose.connection;
 mongoose.Promise = global.Promise;
 
 // Models
-var Food = require('./models/food.model.js');
+var Recipe = require('./../models/food.model');
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -27,24 +27,26 @@ db.once('open', function() {
 
     // APIs
     // select all
-    app.get('/food', function(req, res) {
-        Food.find({}, function(err, docs) {
+    app.get('/recipe', function(req, res) {
+        console.log("SZERVER: receptek lekérése");
+        Recipe.find({}, function(err, docs) {
             if (err) return console.error(err);
             res.json(docs);
         });
     });
 
     // count all
-    app.get('/foods/count', function(req, res) {
-        Food.count(function(err, count) {
+    app.get('/recipes/count', function(req, res) {
+        Recipe.count(function(err, count) {
             if (err) return console.error(err);
             res.json(count);
         });
     });
 
     // create
-    app.post('/food', function(req, res) {
-        var obj = new Food(req.body);
+    app.post('/newrecipe', function(req, res) {
+        console.log("SZERVER: új recept hozzáadás: " + req.body);
+        var obj = new Recipe(req.body);
         obj.save(function(err, obj) {
             if (err) return console.error(err);
             res.status(200).json(obj);
@@ -52,24 +54,24 @@ db.once('open', function() {
     });
 
     // find by id
-    app.get('/food/:id', function(req, res) {
-        Food.findOne({ _id: req.params.id }, function(err, obj) {
+    app.get('/recipe/:id', function(req, res) {
+        Recipe.findOne({ _id: req.params.id }, function(err, obj) {
             if (err) return console.error(err);
             res.json(obj);
         })
     });
 
     // update by id
-    app.put('/food/:id', function(req, res) {
-        Food.findOneAndUpdate({ _id: req.params.id }, req.body, function(err) {
+    app.put('/recipe/:id', function(req, res) {
+        Recipe.findOneAndUpdate({ _id: req.params.id }, req.body, function(err) {
             if (err) return console.error(err);
             res.sendStatus(200);
         })
     });
 
     // delete by id
-    app.delete('/food/:id', function(req, res) {
-        Food.findOneAndRemove({ _id: req.params.id }, function(err) {
+    app.delete('/recipe/:id', function(req, res) {
+        Recipe.findOneAndRemove({ _id: req.params.id }, function(err) {
             if (err) return console.error(err);
             res.sendStatus(200);
         });

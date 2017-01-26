@@ -12,6 +12,6 @@ var foodSchema = mongoose.Schema({
     modifyuser: String
 });
 
-var Food = mongoose.model('Food', foodSchema);
+var Recipe = mongoose.model('Recipe', foodSchema);
 
-module.exports = Food;
+module.exports = Recipe;
