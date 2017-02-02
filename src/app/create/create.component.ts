@@ -16,22 +16,28 @@ export class CreateComponent implements OnInit{
     private food: Array<String>;
     private counter: Number;
     private hozzavalo: Hozzavalo;
-    recipename: String;ujhozzavalo:String;
+    //recipename: String;ujhozzavalo:String;
     private hozzavalok: Array<Hozzavalo>;
+    //ujhozzavalo:string;
 
-    constructor(private http: Http,private dataService: DataService){
+    addRecipeForm: FormGroup;
+    recipename = new FormControl('',Validators.required);
+    description = new FormControl('',Validators.required);
+    ujhozzavalo = new FormControl('',Validators.required);
+
+    constructor(private http: Http,private dataService: DataService,private formBuilder: FormBuilder){
         this.counter = 1;
         this.hozzavalo = new Hozzavalo();
         this.hozzavalo.name = "";
         this.hozzavalok = [];
     }
 
-    newItem(item){
-        console.log("Új hozzávaló: "+item);
+    newItem(){
+        console.log("Új hozzávaló: "+this.addRecipeForm.controls["ujhozzavalo"].value);
         let newitem = new Hozzavalo;
-        newitem.name = item;
+        newitem.name = this.addRecipeForm.controls["ujhozzavalo"].value;
         this.hozzavalok.push(newitem);
-        this.ujhozzavalo = "";
+        //this.ujhozzavalo = "";
         
     }
 
@@ -41,8 +47,13 @@ export class CreateComponent implements OnInit{
     }
 
     ngOnInit() {
+        this.addRecipeForm = this.formBuilder.group({
+            recipename: this.recipename,
+            description: this.description,
+            ujhozzavalo: this.ujhozzavalo
+        });
         console.log(this.hozzavalok.length);
-        this.getRecipes();    
+        //this.getRecipes();    
     }
 
     getRecipes() {
@@ -53,12 +64,17 @@ export class CreateComponent implements OnInit{
         );
     }
 
-    addRecipe(recipe) {
+    /*addRecipe(recipe) {
     this.dataService.addRecipe(recipe).subscribe(
       res => {
         console.log("Sikeresen mentve lett a recept!");
       },
       error => console.log(error)
     );
+  }*/
+
+
+  addRecipe(){
+      console.log(this.addRecipeForm.value);
   }
 }
