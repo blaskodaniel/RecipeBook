@@ -53,7 +53,7 @@ export class CreateComponent implements OnInit{
             ujhozzavalo: this.ujhozzavalo
         });
         console.log(this.hozzavalok.length);
-        //this.getRecipes();    
+        this.getRecipes();    
     }
 
     getRecipes() {
@@ -75,6 +75,13 @@ export class CreateComponent implements OnInit{
 
 
   addRecipe(){
+      this.ujhozzavalo.setValue(this.hozzavalok);
       console.log(this.addRecipeForm.value);
+      this.dataService.addRecipe(this.addRecipeForm.value).subscribe(
+      res => {
+        console.log("Sikeresen mentve lett a recept!");
+      },
+      error => console.log(error)
+    );
   }
 }

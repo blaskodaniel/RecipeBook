@@ -1,6 +1,16 @@
 var mongoose = require('mongoose');
 
 var foodSchema = mongoose.Schema({
+    recipename: String,
+    description: String,
+    ujhozzavalo: [mongoose.Schema.Types.Mixed]
+});
+
+var Recipe = mongoose.model('Recipe', foodSchema);
+
+module.exports = Recipe;
+
+/*var foodSchema = mongoose.Schema({
     id: Number,
     name: String,
     category: Number,
@@ -10,8 +20,4 @@ var foodSchema = mongoose.Schema({
     moifydate: Date,
     createuser: String,
     modifyuser: String
-});
-
-var Recipe = mongoose.model('Recipe', foodSchema);
-
-module.exports = Recipe;
+});*/
