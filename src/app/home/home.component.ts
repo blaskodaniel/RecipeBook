@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
+import { DefaultFunctons } from '../functions/default';
 
 @Component({
     selector: 'home',
@@ -12,7 +13,7 @@ export class HomeComponent implements OnInit{
     private food: Array<String>;
     isLoading = true;
 
-    constructor(private dataService:DataService){
+    constructor(private dataService:DataService, private defaultfunctions:DefaultFunctons){
         this.title = "This is a home component"
     }
 
@@ -22,5 +23,7 @@ export class HomeComponent implements OnInit{
             error => console.log(error),
             () => this.isLoading = false
         );
+
+        this.defaultfunctions.testMethode();
     }
 }
