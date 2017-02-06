@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { DataService } from '../services/data.service';
-import { DefaultFunctons } from '../functions/default';
+import { Helper } from '../functions/helper';
 
 @Component({
     selector: 'home',
@@ -12,9 +13,11 @@ export class HomeComponent implements OnInit{
     private title: String;
     private food: Array<String>;
     isLoading = true;
+    private helper: Helper = new Helper();
 
-    constructor(private dataService:DataService, private defaultfunctions:DefaultFunctons){
-        this.title = "This is a home component"
+
+    constructor(private dataService:DataService){
+        this.title = "This is a home component";
     }
 
     ngOnInit() {
@@ -24,6 +27,5 @@ export class HomeComponent implements OnInit{
             () => this.isLoading = false
         );
 
-        this.defaultfunctions.testMethode();
     }
 }

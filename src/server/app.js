@@ -21,6 +21,12 @@ mongoose.Promise = global.Promise;
 // Models
 var Recipe = require('./../models/food.model');
 
+function MostaniIdo() {
+    var d = new Date();
+    var datum = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getMilliseconds();
+    return datum;
+}
+
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     console.log('Connected to MongoDB');
@@ -45,8 +51,9 @@ db.once('open', function() {
 
     // create
     app.post('/newrecipe', function(req, res) {
-        console.log("SZERVER: új recept hozzáadás: " + req.body);
+
         var obj = new Recipe(req.body);
+        console.log("SZERVER: új recept hozzáadás: " + obj);
         obj.save(function(err, obj) {
             if (err) return console.error(err);
             res.status(200).json(obj);

@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder }  from '@angular/forms';
 import { DataService } from '../services/data.service';
 import { Hozzavalo } from './../../models/hozzavalo.model';
+import { Helper } from '../functions/helper';
 
 @Component({
     selector: 'createrecipe',
@@ -18,12 +19,14 @@ export class CreateComponent implements OnInit{
     private hozzavalo: Hozzavalo;
     //recipename: String;ujhozzavalo:String;
     private hozzavalok: Array<Hozzavalo>;
+    private helper: Helper = new Helper();
     //ujhozzavalo:string;
 
     addRecipeForm: FormGroup;
     recipename = new FormControl('',Validators.required);
     description = new FormControl('',Validators.required);
     ujhozzavalo = new FormControl('',Validators.required);
+    createdate = new FormControl();
 
     constructor(private http: Http,private dataService: DataService,private formBuilder: FormBuilder){
         this.counter = 1;
@@ -50,7 +53,8 @@ export class CreateComponent implements OnInit{
         this.addRecipeForm = this.formBuilder.group({
             recipename: this.recipename,
             description: this.description,
-            ujhozzavalo: this.ujhozzavalo
+            ujhozzavalo: this.ujhozzavalo,
+            createdate: this.createdate
         });
         console.log(this.hozzavalok.length);
         this.getRecipes();    
@@ -76,6 +80,7 @@ export class CreateComponent implements OnInit{
 
   addRecipe(){
       this.ujhozzavalo.setValue(this.hozzavalok);
+      this.createdate.setValue(this.helper.getDateTime());
       console.log(this.addRecipeForm.value);
       this.dataService.addRecipe(this.addRecipeForm.value).subscribe(
       res => {

@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 var foodSchema = mongoose.Schema({
     recipename: String,
     description: String,
-    ujhozzavalo: [mongoose.Schema.Types.Mixed]
+    ujhozzavalo: [mongoose.Schema.Types.Mixed],
+    createdate: Date
 });
 
 var Recipe = mongoose.model('Recipe', foodSchema);
