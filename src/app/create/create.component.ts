@@ -40,6 +40,7 @@ export class CreateComponent implements OnInit{
         let newitem = new Hozzavalo;
         newitem.name = this.addRecipeForm.controls["ujhozzavalo"].value;
         this.hozzavalok.push(newitem);
+        this.addRecipeForm.controls["ujhozzavalo"].reset();
         //this.ujhozzavalo = "";
         
     }

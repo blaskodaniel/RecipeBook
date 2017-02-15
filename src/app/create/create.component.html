@@ -1,5 +1,5 @@
 <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-    <!--<h1 class="page-header">{{recipename}}</h1>-->
+    <h1 class="page-header">{{addRecipeForm.controls["recipename"].value}}</h1>
 </div>
 <div class="col-xs-12 col-sm-6 col-sm-offset-3">
     <form [formGroup]="addRecipeForm" (ngSubmit)="addRecipe()">
@@ -19,14 +19,15 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <ul *ngIf="hozzavalok.length > 0" class="hozzavaloklista">
-                        <li *ngFor="let item of hozzavalok">
-                            <div>
-                                <span>{{item.name}}</span>
+                    <div *ngIf="hozzavalok.length > 0">
+                        <div *ngFor="let item of hozzavalok">
+                            <div class="col-xs-10">{{item.name}}</div>
+                            <div class="col-xs-2">
                                 <i class="fa fa-minus-circle removebutton" aria-hidden="true" (click)="removeItem(item)"></i>
                             </div>
-                        </li>
-                    </ul>
+                        </div>
+
+                    </div>
                     <div class="emptyarray" *ngIf="hozzavalok.length < 1">Még nem adtál hozzávalót</div>
                 </div>
             </div>

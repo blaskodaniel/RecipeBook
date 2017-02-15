@@ -13,6 +13,8 @@ import { HomeComponent } from './home/home.component';
 import { FilterComponent } from './filter/filter.component';
 import { CreateComponent } from './create/create.component';
 
+import {SubStringPipe} from './tools/substring.pipe';
+
 const appRoutes: Routes = [
   {
     path: 'home',
@@ -33,7 +35,8 @@ const appRoutes: Routes = [
     NavigationComponent,
     HomeComponent,
     CreateComponent,
-    FilterComponent
+    FilterComponent,
+    SubStringPipe
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
