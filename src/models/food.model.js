@@ -4,7 +4,8 @@ var foodSchema = mongoose.Schema({
     recipename: String,
     description: String,
     ujhozzavalo: [mongoose.Schema.Types.Mixed],
-    createdate: Date
+    createdate: Date,
+    imagefilename: String
 });
 
 var Recipe = mongoose.model('Recipe', foodSchema);

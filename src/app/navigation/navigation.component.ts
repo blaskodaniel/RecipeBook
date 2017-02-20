@@ -10,7 +10,10 @@ export class NavigationComponent{
     private menuitems = [];
 
     constructor(){
-        this.menuitems = ['Receptek','Bejelentkezés']
+        this.menuitems = [
+            {'DisplayName':'Receptek','Azonosito':'home'},
+            {'DisplayName':'Recept hozzáadása','Azonosito':'create'}
+            ]
     }
 
 }

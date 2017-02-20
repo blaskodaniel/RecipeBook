@@ -4,6 +4,9 @@ import { FormGroup, FormControl, Validators, FormBuilder }  from '@angular/forms
 import { DataService } from '../services/data.service';
 import { Hozzavalo } from './../../models/hozzavalo.model';
 import { Helper } from '../functions/helper';
+import { FileUploader } from 'ng2-file-upload';
+
+const uploadURL = 'http://localhost:4200/upload';
 
 @Component({
     selector: 'createrecipe',
@@ -17,16 +20,17 @@ export class CreateComponent implements OnInit{
     private food: Array<String>;
     private counter: Number;
     private hozzavalo: Hozzavalo;
-    //recipename: String;ujhozzavalo:String;
     private hozzavalok: Array<Hozzavalo>;
     private helper: Helper = new Helper();
-    //ujhozzavalo:string;
+
+    public uploader:FileUploader = new FileUploader({url: uploadURL});
 
     addRecipeForm: FormGroup;
     recipename = new FormControl('',Validators.required);
     description = new FormControl('',Validators.required);
     ujhozzavalo = new FormControl('',Validators.required);
     createdate = new FormControl();
+    imagefilename = new FormControl();
 
     constructor(private http: Http,private dataService: DataService,private formBuilder: FormBuilder){
         this.counter = 1;
@@ -55,7 +59,8 @@ export class CreateComponent implements OnInit{
             recipename: this.recipename,
             description: this.description,
             ujhozzavalo: this.ujhozzavalo,
-            createdate: this.createdate
+            createdate: this.createdate,
+            imagefilename: this.imagefilename
         });
         console.log(this.hozzavalok.length);
         this.getRecipes();    
@@ -68,15 +73,25 @@ export class CreateComponent implements OnInit{
             () => this.isLoading = false
         );
     }
-
-    /*addRecipe(recipe) {
-    this.dataService.addRecipe(recipe).subscribe(
-      res => {
-        console.log("Sikeresen mentve lett a recept!");
-      },
-      error => console.log(error)
-    );
-  }*/
+ 
+  fileUpload(){
+      console.log("Fájlfeltöltés...");
+      this.uploader.uploadAll();
+      this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+            if(status == 200)
+            {
+                console.log("Sikeres Fájlfeltöltés");
+                var valasz = JSON.parse(item._xhr.response);
+                var imagefilename = valasz.filename.filename;
+                this.imagefilename.setValue(imagefilename);
+                console.log("Imagename: "+imagefilename);
+            }
+            else{
+                console.log("Sikertelen Fájlfeltöltés");
+            }
+            
+        };
+  }  
 
 
   addRecipe(){
@@ -89,5 +104,6 @@ export class CreateComponent implements OnInit{
       },
       error => console.log(error)
     );
+
   }
 }

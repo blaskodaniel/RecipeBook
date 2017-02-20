@@ -6,12 +6,14 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { DataService } from './services/data.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
 import { FilterComponent } from './filter/filter.component';
 import { CreateComponent } from './create/create.component';
+import { FileUploadComponent } from './fileupload/upload.components';
 
 import {SubStringPipe} from './tools/substring.pipe';
 
@@ -26,6 +28,11 @@ const appRoutes: Routes = [
     component: CreateComponent,
     data: { title: 'Új recept' }
   },
+  {
+    path: 'upload',
+    component: FileUploadComponent,
+    data: { title: 'Fénykép feltöltése' }
+  },
   { path: '**', component: HomeComponent }
 ];
 
@@ -36,6 +43,8 @@ const appRoutes: Routes = [
     HomeComponent,
     CreateComponent,
     FilterComponent,
+    FileSelectDirective,
+    FileUploadComponent,
     SubStringPipe
   ],
   imports: [

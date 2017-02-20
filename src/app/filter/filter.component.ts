@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder }  from '@angular/forms';
 
 @Component({
     selector: 'filter',
@@ -6,11 +7,24 @@ import { Component } from '@angular/core';
     styleUrls: ['./filter.component.css']
 })
 
-export class FilterComponent{
+export class FilterComponent implements OnInit{
     private menuitems = [];
 
-    constructor(){
+    SearchForm: FormGroup;
+    searchname = new FormControl('',Validators.required);
+    
+    constructor(private formBuilder: FormBuilder){
         this.menuitems = ['Receptek','Bejelentkezés']
+    }
+
+     ngOnInit() {
+        this.SearchForm = this.formBuilder.group({
+            searchname: this.searchname
+        });  
+    }
+
+    search(){
+        console.log(this.searchname.value);
     }
 
 }

@@ -8,6 +8,27 @@
             <input type="text" class="form-control" id="recipename" name="recipename" placeholder="Add meg a recepted nevét" formControlName="recipename">
         </div>
         <div class="form-group">
+            <label for="recipeimage">Kép</label>
+            <input type="file" ng2FileSelect [uploader]="uploader" name="uploadfile" />
+        </div>
+        <div>
+            <div>
+                Queue progress:
+                <div class="progress" style="">
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-success btn-s" (click)="fileUpload()" [disabled]="!uploader.getNotUploadedItems().length">
+                    <span class="glyphicon glyphicon-upload"></span> Upload all
+                </button>
+            <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+                </button>
+            <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                    <span class="glyphicon glyphicon-trash"></span> Remove all
+                </button>
+        </div>
+        <div class="form-group">
             <label for="description">Elkészítés</label>
             <textarea class="form-control" rows="10" id="description" placeholder="Írd le hogyan is készül az étel" formControlName="description"></textarea>
         </div>

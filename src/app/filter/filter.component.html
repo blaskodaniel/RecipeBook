@@ -1,7 +1,11 @@
 <div class="col-xs-12 text-center">
-    <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
-    <h3>John Smith
-        <small>Job Title</small>
-    </h3>
-    <p>What does this team member to? Keep it short! This is also a great spot for social links!</p>
+    <form [formGroup]="SearchForm" (ngSubmit)="search()">
+        <div class="form-group">
+            <label for="search">Keresés a receptek között:</label>
+            <input type="text" class="form-control" id="search" name="search" placeholder="Kereső.." formControlName="searchname">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Keresés</button>
+        </div>
+    </form>
 </div>
