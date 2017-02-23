@@ -9,17 +9,11 @@ import { DataService } from '../services/data.service';
 })
 
 export class DisplayComponent implements OnInit {
-    routerapp: Router;
-    id: number;
+    recipeload: Object;
 
     constructor(private routers: ActivatedRoute,private dataService:DataService){
-        
-    }
 
-    private ngOnDestroy() {
-        console.log("ngOnDestroy");
     }
-
 
      ngOnInit() {
          var userId = null;
@@ -29,9 +23,13 @@ export class DisplayComponent implements OnInit {
         });
         console.log(userId);
         this.dataService.getRecipeByID(userId).subscribe(
-            data => {console.log(data);},
+            data => {
+                this.recipeload = data;
+                console.log(data);
+            },
             error => console.log(error)
         );
+        console.log("OK");
     }
 
 }
