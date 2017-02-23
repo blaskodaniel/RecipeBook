@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { FilterComponent } from './filter/filter.component';
 import { CreateComponent } from './create/create.component';
 import { FileUploadComponent } from './fileupload/upload.components';
+import { DisplayComponent } from './RecipeDisplay/display.component';
 
 import {SubStringPipe} from './tools/substring.pipe';
 
@@ -33,6 +34,10 @@ const appRoutes: Routes = [
     component: FileUploadComponent,
     data: { title: 'Fénykép feltöltése' }
   },
+  {
+    path: 'display/:id',
+    component: DisplayComponent
+  },
   { path: '**', component: HomeComponent }
 ];
 
@@ -45,6 +50,7 @@ const appRoutes: Routes = [
     FilterComponent,
     FileSelectDirective,
     FileUploadComponent,
+    DisplayComponent,
     SubStringPipe
   ],
   imports: [

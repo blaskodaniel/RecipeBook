@@ -1,0 +1,46 @@
+@font-face {
+    font-family: Muli;
+    src: url("/fonts/Muli-Bold.ttf");
+}
+
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.flex-item {
+    width: 190px;
+    max-height: 175px;
+    margin: 10px;
+}
+
+.thumbnail {
+    height: 165px;
+}
+
+.thumbnail img {
+    height: 100%;
+    width: 100%;
+}
+
+.thumbnail-title {
+    text-align: center;
+    top: -100px;
+    height: 77px;
+    width: 100%;
+    display: table;
+    position: relative;
+    background: rgba(249, 245, 245, 0.79);
+}
+
+.thumbnail-title a {
+    text-decoration: none;
+    font-family: 'Muli', sans-serif;
+}
+
+.filterContainer {
+    padding-top: 15px;
+    background: ghostwhite;
+}

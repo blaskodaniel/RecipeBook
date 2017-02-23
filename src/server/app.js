@@ -10,8 +10,8 @@ app.set('port', (process.env.PORT || 3100));
 
 var DIR = './uploads';
 
-app.use(express.static(path.join(__dirname, 'assets')));
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '../data')));
+app.use(express.static(path.join(__dirname, '../../uploads')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -19,7 +19,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
 // -----------------------------------------------------------
-app.use(function(req, res, next) { //allow cross origin requests
+app.use(function(req, res, next) {
+    //allow cross origin requests
     res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
     res.header("Access-Control-Allow-Origin", "http://localhost:4200");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -75,6 +76,7 @@ db.once('open', function() {
 
     // find by id
     app.get('/recipe/:id', function(req, res) {
+        console.log("find by id");
         Recipe.findOne({ _id: req.params.id }, function(err, obj) {
             if (err) return console.error(err);
             res.json(obj);
@@ -83,6 +85,7 @@ db.once('open', function() {
 
     // update by id
     app.put('/recipe/:id', function(req, res) {
+        console.log("update by id");
         Recipe.findOneAndUpdate({ _id: req.params.id }, req.body, function(err) {
             if (err) return console.error(err);
             res.sendStatus(200);

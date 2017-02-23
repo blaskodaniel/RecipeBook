@@ -17,6 +17,11 @@ export class DataService {
     return this.http.get('/recipe').map(res => res.json());
   }
 
+  getRecipeByID(id): Observable<any> {
+      console.log("getRecipeByID() függvény fut le: /recipe/"+id+" -re");
+    return this.http.get('/recipe/'+id).map(res => res.json());
+  }
+
   addRecipe(recipe): Observable<any> {
     return this.http.post('/newrecipe', JSON.stringify(recipe), this.options);
   }
