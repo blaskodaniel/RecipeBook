@@ -19,10 +19,11 @@
                 <div class="flex-item" *ngFor="let item of food">
                     <div class="thumbnail">
                         <img src="{{item.imagefilename}}">
+                        <div class="thumbnail-title">
+                            <h3><a href="#" [routerLink]="['display', item._id]">{{item.recipename}}</a></h3>
+                        </div>
                     </div>
-                    <div class="thumbnail-title">
-                        <h3><a href="#" [routerLink]="['./display', item._id]">{{item.recipename}}</a></h3>
-                    </div>
+
                 </div>
             </div>
 

@@ -1,3 +1,17 @@
+@font-face {
+    font-family: Josefin Sans Regular;
+    src: url("/fonts/JosefinSans-Regular.ttf");
+}
+
+@font-face {
+    font-family: Josefin Sans Semibold;
+    src: url("/fonts/JosefinSans-SemiBold.ttf");
+}
+
+body {
+    font-family: 'Josefin Sans Regular', sans-serif;
+}
+
 .loader,
 .loader:before,
 .loader:after {

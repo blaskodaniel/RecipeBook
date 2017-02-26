@@ -20,11 +20,6 @@ import {SubStringPipe} from './tools/substring.pipe';
 
 const appRoutes: Routes = [
   {
-    path: 'home',
-    component: HomeComponent,
-    data: { title: 'Főmenü' }
-  },
-  {
     path: 'create',
     component: CreateComponent,
     data: { title: 'Új recept' }

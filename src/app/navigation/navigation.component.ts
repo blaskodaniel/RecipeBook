@@ -11,7 +11,7 @@ export class NavigationComponent{
 
     constructor(){
         this.menuitems = [
-            {'DisplayName':'Receptek','Azonosito':'home'},
+            {'DisplayName':'Receptek'},
             {'DisplayName':'Recept hozzáadása','Azonosito':'create'}
             ]
     }

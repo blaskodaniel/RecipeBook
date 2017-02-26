@@ -27,7 +27,7 @@
 
 .thumbnail-title {
     text-align: center;
-    top: -100px;
+    top: -77px;
     height: 77px;
     width: 100%;
     display: table;
@@ -40,7 +40,19 @@
     font-family: 'Muli', sans-serif;
 }
 
+.thumbnail-title h3 {
+    font-size: 15px;
+}
+
 .filterContainer {
     padding-top: 15px;
     background: ghostwhite;
+}
+
+@media only screen and (max-device-width: 700px) {
+    .flex-item {
+        width: 230px;
+        height: auto;
+        margin: 0 auto;
+    }
 }

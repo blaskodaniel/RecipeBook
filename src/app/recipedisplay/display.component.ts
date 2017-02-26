@@ -9,27 +9,32 @@ import { DataService } from '../services/data.service';
 })
 
 export class DisplayComponent implements OnInit {
-    recipeload: Object;
+    private recipeload: {};
 
     constructor(private routers: ActivatedRoute,private dataService:DataService){
-
+        this.recipeload = {};
     }
 
      ngOnInit() {
-         var userId = null;
+         var ID = null;
+         
          this.routers.params.subscribe((params: Params) => {
-            userId = params['id'];
-            
+            ID = params['id'];
+            console.log("ID: "+ID);
+            this.getRecipeById(ID);
         });
-        console.log(userId);
-        this.dataService.getRecipeByID(userId).subscribe(
+        
+    }
+
+    getRecipeById(recipeID){
+        this.dataService.getRecipeByID(recipeID).subscribe(
             data => {
                 this.recipeload = data;
-                console.log(data);
+                console.log("ADAT: "+JSON.stringify(data));
             },
             error => console.log(error)
         );
-        console.log("OK");
+        
     }
 
 }
