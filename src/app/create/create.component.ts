@@ -6,7 +6,7 @@ import { Hozzavalo } from './../../models/hozzavalo.model';
 import { Helper } from '../functions/helper';
 import { FileUploader } from 'ng2-file-upload';
 
-const uploadURL = 'http://localhost:4200/upload';
+const uploadURL = 'http://localhost:3000/upload';
 
 @Component({
     selector: 'createrecipe',

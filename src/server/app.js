@@ -6,11 +6,12 @@ var morgan = require('morgan'); // logger
 var bodyParser = require('body-parser');
 
 var app = express();
-app.set('port', (process.env.PORT || 3100));
+app.set('port', (process.env.PORT || 3000));
 
 var DIR = './uploads';
 
 app.use(express.static(path.join(__dirname, '../data')));
+app.use(express.static(path.join(__dirname, '/../../dist')));
 app.use(express.static(path.join(__dirname, '../../uploads')));
 
 app.use(bodyParser.json());
@@ -22,6 +23,7 @@ app.use(morgan('dev'));
 app.use(function(req, res, next) {
     //allow cross origin requests
     res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
+    //res.header("Access-Control-Allow-Origin", "http://localhost:4200");
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Credentials", true);
@@ -102,7 +104,7 @@ db.once('open', function() {
 
     // all other routes are handled by Angular
     app.get('/*', function(req, res) {
-        //res.sendFile(path.join(__dirname, '/../../dist/index.html'));
+        res.sendFile(path.join(__dirname, '/../../dist/index.html'));
     });
 
     app.listen(app.get('port'), function() {
