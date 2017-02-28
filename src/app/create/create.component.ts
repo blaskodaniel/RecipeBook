@@ -5,6 +5,7 @@ import { DataService } from '../services/data.service';
 import { Hozzavalo } from './../../models/hozzavalo.model';
 import { Helper } from '../functions/helper';
 import { FileUploader } from 'ng2-file-upload';
+declare var jQuery:any;
 
 const uploadURL = 'http://localhost:3000/upload';
 
@@ -22,6 +23,7 @@ export class CreateComponent implements OnInit{
     private hozzavalo: Hozzavalo;
     private hozzavalok: Array<Hozzavalo>;
     private helper: Helper = new Helper();
+    private modal_text:string;
 
     public uploader:FileUploader = new FileUploader({url: uploadURL});
 
@@ -37,6 +39,7 @@ export class CreateComponent implements OnInit{
         this.hozzavalo = new Hozzavalo();
         this.hozzavalo.name = "";
         this.hozzavalok = [];
+        this.modal_text = "";
     }
 
     newItem(){
@@ -101,6 +104,10 @@ export class CreateComponent implements OnInit{
       this.dataService.addRecipe(this.addRecipeForm.value).subscribe(
       res => {
         console.log("Sikeresen mentve lett a recept!");
+        this.modal_text = "Sikeresen mentve lett a recept!";
+        this.addRecipeForm.reset();
+        this.hozzavalok = [];
+        jQuery('.modal').modal();
       },
       error => console.log(error)
     );
