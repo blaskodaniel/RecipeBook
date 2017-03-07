@@ -13,7 +13,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
 import { FilterComponent } from './filter/filter.component';
 import { CreateComponent } from './create/create.component';
-import { DisplayComponent } from './RecipeDisplay/display.component';
+import { DisplayComponent } from './recipedisplay/display.component';
 
 import {SubStringPipe} from './tools/substring.pipe';
 
