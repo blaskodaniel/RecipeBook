@@ -23,8 +23,8 @@ app.use(morgan('dev'));
 app.use(function(req, res, next) {
     //allow cross origin requests
     res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
-    //res.header("Access-Control-Allow-Origin", "http://localhost:4200");
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+    //res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Credentials", true);
     next();
@@ -87,8 +87,12 @@ db.once('open', function() {
 
     // update by id
     app.put('/recipe/:id', function(req, res) {
-        console.log("update by id");
-        Recipe.findOneAndUpdate({ _id: req.params.id }, req.body, function(err) {
+        console.log("update by id: " + req.params.id);
+        console.log("body: " + req.body);
+        var obj = req.body;
+        delete obj._id;
+        console.log(obj);
+        Recipe.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, upsert: true }, function(err) {
             if (err) return console.error(err);
             res.sendStatus(200);
         })
@@ -105,6 +109,7 @@ db.once('open', function() {
     // all other routes are handled by Angular
     app.get('/*', function(req, res) {
         res.sendFile(path.join(__dirname, '/../../dist/index.html'));
+
     });
 
     app.listen(app.get('port'), function() {

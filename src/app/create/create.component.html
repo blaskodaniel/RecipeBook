@@ -28,6 +28,10 @@
                     <span class="glyphicon glyphicon-trash"></span> Remove all
                 </button>
         </div>
+        <div class="form-group" [hidden]="recipeload.imagefilename == unknown">
+            <label for="description">Előkép</label>
+            <img src="{{recipeload.imagefilename}}" class="img-responsive displayimage img-thumbnail">
+        </div>
         <div class="form-group">
             <label for="description">Elkészítés</label>
             <textarea class="form-control" rows="10" id="description" placeholder="Írd le hogyan is készül az étel" formControlName="description"></textarea>
@@ -68,6 +72,7 @@
         </div>
 
         <button type="submit" class="btn btn-success">Mentés</button>
+        <button type="button" class="btn btn-danger" (click)="updateRecipe()">Módosítás</button>
     </form>
 
 </div>

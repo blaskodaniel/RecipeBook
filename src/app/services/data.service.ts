@@ -26,8 +26,10 @@ export class DataService {
     return this.http.post('/newrecipe', JSON.stringify(recipe), this.options);
   }
 
-  editRecipe(recipe): Observable<any> {
-    return this.http.put(`/recipe/${recipe._id}`, JSON.stringify(recipe), this.options);
+  editRecipe(recipe,objectwithid): Observable<any> {
+    console.log("UPDATE");
+    var t = JSON.stringify(recipe);
+    return this.http.put(`/recipe/${objectwithid._id}`, t, this.options);
   }
 
   deleteRecipe(recipe): Observable<any> {

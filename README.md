@@ -12,9 +12,13 @@ Run `npm start`
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 
-## Build
-
+## Build the application
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+
+Before build set the following: http://myurl.com/ instead of http://localhost:3000/
+- src/app/create/create.components.ts => const uploadURL = 'http://myurl.com/upload';
+- server/app.js => res.header("Access-Control-Allow-Origin", "http://myurl.com/");
+
 
 ## Dependeces
 typings install dt~jquery --global --save

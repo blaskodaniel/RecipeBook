@@ -1,7 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center">
-            <h2>{{recipeload.recipename}}</h2>
+            <h2>{{recipeload.recipename}}
+                <span class="editicon" [routerLink]="['/create',recipeload._id]">&nbsp;<i class="fa fa-pencil" aria-hidden="true"></i></span></h2>
             <p>(Létrehozva: {{recipeload.createdate}})</p>
         </div>
         <div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center">

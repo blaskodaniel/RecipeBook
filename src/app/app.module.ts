@@ -27,6 +27,10 @@ const appRoutes: Routes = [
     path: 'display/:id',
     component: DisplayComponent
   },
+  {
+    path: 'create/:id',
+    component: CreateComponent
+  },
   { path: '**', component: HomeComponent }
 ];
 

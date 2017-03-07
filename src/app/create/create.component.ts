@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder }  from '@angular/forms';
 import { DataService } from '../services/data.service';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 import { Hozzavalo } from './../../models/hozzavalo.model';
 import { Helper } from '../functions/helper';
 import { FileUploader } from 'ng2-file-upload';
@@ -33,13 +34,15 @@ export class CreateComponent implements OnInit{
     ujhozzavalo = new FormControl('',Validators.required);
     createdate = new FormControl();
     imagefilename = new FormControl();
+    recipeload: {};
 
-    constructor(private http: Http,private dataService: DataService,private formBuilder: FormBuilder){
+    constructor(private routers: ActivatedRoute,private http: Http,private dataService: DataService,private formBuilder: FormBuilder){
         this.counter = 1;
         this.hozzavalo = new Hozzavalo();
         this.hozzavalo.name = "";
         this.hozzavalok = [];
         this.modal_text = "";
+        this.recipeload = {};
     }
 
     newItem(){
@@ -52,12 +55,44 @@ export class CreateComponent implements OnInit{
         
     }
 
+    newItemWithParams(item){
+        console.log("Új hozzávaló: "+item);
+        let newitem = new Hozzavalo;
+        newitem.name = item;
+        this.hozzavalok.push(newitem);
+        this.addRecipeForm.controls["ujhozzavalo"].reset();
+        
+    }
+
     removeItem(item){
         console.log("Hozzávaló törlése: "+item);
         this.hozzavalok.splice(this.hozzavalok.indexOf(item),1);
     }
 
+    updateRecipe(){
+        console.log("Frissítés lesz");
+        this.ujhozzavalo.setValue(this.hozzavalok);
+        this.createdate.setValue(this.helper.getDateTime());
+        console.log(this.addRecipeForm.value);
+        this.dataService.editRecipe(this.addRecipeForm.value,this.recipeload).subscribe(
+            data => {
+               console.log("Siker");
+                
+            },
+            error => console.log(error)
+        );
+    }
+
     ngOnInit() {
+        var ID = null;
+        this.routers.params.subscribe((params: Params) => {
+            ID = params['id'];
+            if(ID != null){
+                console.log("Módosított recept ID: "+ID);
+                this.getRecipeById(ID);
+            }
+            
+        });
         this.addRecipeForm = this.formBuilder.group({
             recipename: this.recipename,
             description: this.description,
@@ -77,6 +112,25 @@ export class CreateComponent implements OnInit{
         );
     }
  
+    getRecipeById(recipeID){
+        this.dataService.getRecipeByID(recipeID).subscribe(
+            data => {
+                this.recipeload = data;
+                console.log("ADAT: "+JSON.stringify(data));
+                this.recipename.setValue(data.recipename);
+                this.description.setValue(data.description);
+                this.imagefilename.setValue(data.imagefilename);
+                for(let item of data.ujhozzavalo)
+                {
+                    this.newItemWithParams(item.name);
+                }
+                
+            },
+            error => console.log(error)
+        );
+        
+    }
+
   fileUpload(){
       console.log("Fájlfeltöltés...");
       this.uploader.uploadAll();
