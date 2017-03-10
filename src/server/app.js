@@ -6,7 +6,7 @@ var morgan = require('morgan'); // logger
 var bodyParser = require('body-parser');
 
 var app = express();
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 3100));
 
 var DIR = './uploads';
 
@@ -24,7 +24,7 @@ app.use(function(req, res, next) {
     //allow cross origin requests
     res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
     res.header("Access-Control-Allow-Origin", "http://localhost:4200");
-    //res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    //res.header("Access-Control-Allow-Origin", "http://localhost:3100");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Credentials", true);
     next();

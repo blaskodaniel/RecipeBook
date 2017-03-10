@@ -8,7 +8,7 @@ import { Helper } from '../functions/helper';
 import { FileUploader } from 'ng2-file-upload';
 declare var jQuery:any;
 
-const uploadURL = 'http://localhost:3000/upload';
+const uploadURL = 'http://localhost:3100/upload';
 
 @Component({
     selector: 'createrecipe',
