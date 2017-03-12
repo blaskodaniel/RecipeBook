@@ -21,6 +21,10 @@ Before build set the following: http://myurl.com/ instead of http://localhost:30
 - app.module.ts --> import { DisplayComponent } from './recipedisplay/display.component';
 
 
+Ideas (for design):
+- http://meridianthemes-demo.net/view/?theme=meridian-recipes
+- http://themes.muffingroup.com/be/goodfood/food-blog/
+
 ## Dependeces
 typings install dt~jquery --global --save
 tsd install jquery --save
