@@ -17,13 +17,30 @@
             <!-- Projects Row -->
             <div class="flex-container">
                 <div class="flex-item" *ngFor="let item of food">
-                    <div class="thumbnail">
+                    <!--<div class="thumbnail">
                         <img src="{{item.imagefilename}}">
                         <div class="thumbnail-title">
                             <h3><a href="#" [routerLink]="['display', item._id]">{{item.recipename}}</a></h3>
                         </div>
+                    </div>-->
+                    <div class="recipeitem">
+                        <div class="recipeitem-thumbnail">
+                            <img src="{{item.imagefilename}}">
+                            <span [hidden]="item.rate < 1" class="floatRate">{{item.rate}} pont</span>
+                        </div>
+                        <div class="recipeitem-createdate">
+                            {{item.createdate | amDateFormat:'LL'}}
+                        </div>
+                        <div class="recipeitem-name">
+                            <h2><a href="#" [routerLink]="['display', item._id]">{{item.recipename}}</a></h2>
+                        </div>
+                        <div class="recipeitem-info">
+                            <div class="row no-margin-left no-margin-right">
+                                <div class="col-xs-6 leftbox"><i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp; {{item.recipecreatetime}}</div>
+                                <div class="col-xs-6 rightbox">Nehézség: {{item.difficultlevel}}/10</div>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
             </div>
 
