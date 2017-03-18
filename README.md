@@ -30,4 +30,7 @@ typings install dt~jquery --global --save
 tsd install jquery --save
 npm install -g nodemon
 
+## Tutorials
+Moment:
+https://github.com/urish/angular2-moment
 

@@ -11,3 +11,11 @@ h2 {
     font-size: 16px;
     cursor: pointer;
 }
+
+.breakline {
+    white-space: pre-line;
+}
+
+.hozzavalokdiv {
+    background-color: rgba(212, 205, 205, 0.3);
+}

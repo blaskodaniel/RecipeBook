@@ -1,4 +1,4 @@
-import { Component,OnInit,OnDestroy,Pipe, PipeTransform } from '@angular/core';
+import { Component,OnInit,OnDestroy } from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -30,6 +30,7 @@ export class DisplayComponent implements OnInit {
         this.dataService.getRecipeByID(recipeID).subscribe(
             data => {
                 this.recipeload = data;
+
                 console.log("ADAT: "+JSON.stringify(data));
             },
             error => console.log(error)

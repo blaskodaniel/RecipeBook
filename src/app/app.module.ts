@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DataService } from './services/data.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
+import {MomentModule} from 'angular2-moment';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -15,7 +16,7 @@ import { FilterComponent } from './filter/filter.component';
 import { CreateComponent } from './create/create.component';
 import { DisplayComponent } from './recipedisplay/display.component';
 
-import {SubStringPipe} from './tools/substring.pipe';
+import {SubStringPipe} from './pipes/substring.pipe';
 
 const appRoutes: Routes = [
   {
@@ -50,6 +51,7 @@ const appRoutes: Routes = [
     BrowserModule,
     NgbModule.forRoot(),
     FormsModule,
+    MomentModule,
     ReactiveFormsModule,
     HttpModule
   ],

@@ -5,6 +5,11 @@ var foodSchema = mongoose.Schema({
     description: String,
     ujhozzavalo: [mongoose.Schema.Types.Mixed],
     createdate: Date,
+    moifydate: Date,
+    category: String,
+    rate: Number,
+    recipecreatetime: String,
+    difficultlevel: Number,
     imagefilename: String
 });
 

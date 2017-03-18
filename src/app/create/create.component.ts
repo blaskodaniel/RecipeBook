@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Http } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder }  from '@angular/forms';
 import { DataService } from '../services/data.service';
@@ -6,6 +6,7 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import { Hozzavalo } from './../../models/hozzavalo.model';
 import { Helper } from '../functions/helper';
 import { FileUploader } from 'ng2-file-upload';
+import {IModal} from '../interface/IModal';
 declare var jQuery:any;
 
 const uploadURL = 'http://localhost:3100/upload';
@@ -24,8 +25,9 @@ export class CreateComponent implements OnInit{
     private hozzavalo: Hozzavalo;
     private hozzavalok: Array<Hozzavalo>;
     private helper: Helper = new Helper();
-    private modal_text:string;
-
+    private categorylist: Array<String>;
+    
+    public modalobject :IModal = {title:"",text:""};
     public uploader:FileUploader = new FileUploader({url: uploadURL});
 
     addRecipeForm: FormGroup;
@@ -34,14 +36,23 @@ export class CreateComponent implements OnInit{
     ujhozzavalo = new FormControl('',Validators.required);
     createdate = new FormControl();
     imagefilename = new FormControl();
+    moifydate= new FormControl();
+    category= new FormControl('',Validators.required);
+    rate= new FormControl();
+    recipecreatetime= new FormControl('',Validators.required);
+    difficultlevel = new FormControl('',Validators.required);
     recipeload: {};
 
-    constructor(private routers: ActivatedRoute,private http: Http,private dataService: DataService,private formBuilder: FormBuilder){
+    constructor(private routers: ActivatedRoute,
+    private http: Http,
+    private dataService: DataService,
+    private formBuilder: FormBuilder)
+    {
         this.counter = 1;
         this.hozzavalo = new Hozzavalo();
         this.hozzavalo.name = "";
         this.hozzavalok = [];
-        this.modal_text = "";
+        this.categorylist = ["Leves","Főzelék","Húsételek","Pörkölt","Tészta","Desszert","Saláta","Diétás","Egytálétel"];
         this.recipeload = {};
     }
 
@@ -72,12 +83,12 @@ export class CreateComponent implements OnInit{
     updateRecipe(){
         console.log("Frissítés lesz");
         this.ujhozzavalo.setValue(this.hozzavalok);
-        this.createdate.setValue(this.helper.getDateTime());
+        this.moifydate.setValue(this.helper.getDateTime());
         console.log(this.addRecipeForm.value);
         this.dataService.editRecipe(this.addRecipeForm.value,this.recipeload).subscribe(
             data => {
                console.log("Siker");
-                
+                this.resetFormWithModal("Sikeres módosítás","Sikeresen frissítettük a receptet.");
             },
             error => console.log(error)
         );
@@ -98,9 +109,16 @@ export class CreateComponent implements OnInit{
             description: this.description,
             ujhozzavalo: this.ujhozzavalo,
             createdate: this.createdate,
-            imagefilename: this.imagefilename
+            moifydate:this.moifydate,
+            imagefilename: this.imagefilename,
+            category:this.category,
+            rate:this.rate,
+            recipecreatetime:this.recipecreatetime,
+            difficultlevel: this.difficultlevel
         });
         console.log(this.hozzavalok.length);
+        this.rate.setValue(0);
+        this.difficultlevel.setValue(1);
         this.getRecipes();    
     }
 
@@ -124,7 +142,11 @@ export class CreateComponent implements OnInit{
                 {
                     this.newItemWithParams(item.name);
                 }
-                
+                this.category.setValue(data.category);
+                this.rate.setValue(data.rate);
+                this.createdate.setValue(data.createdate);
+                this.difficultlevel.setValue(data.difficultlevel);
+                this.recipecreatetime.setValue(data.recipecreatetime);
             },
             error => console.log(error)
         );
@@ -153,18 +175,25 @@ export class CreateComponent implements OnInit{
 
   addRecipe(){
       this.ujhozzavalo.setValue(this.hozzavalok);
-      this.createdate.setValue(this.helper.getDateTime());
+      let nowtimedate = this.helper.getDateTime();
+      this.createdate.setValue(nowtimedate);
+      this.moifydate.setValue(nowtimedate);
       console.log(this.addRecipeForm.value);
       this.dataService.addRecipe(this.addRecipeForm.value).subscribe(
       res => {
         console.log("Sikeresen mentve lett a recept!");
-        this.modal_text = "Sikeresen mentve lett a recept!";
-        this.addRecipeForm.reset();
-        this.hozzavalok = [];
-        jQuery('.modal').modal();
+        this.resetFormWithModal("Sikeres mentés","A receptet sikeresen elmentettük.");
       },
       error => console.log(error)
     );
 
+  }
+
+  resetFormWithModal(title:string,szoveg:string){
+        this.modalobject.text = szoveg;
+        this.modalobject.title = title;
+        this.addRecipeForm.reset();
+        this.hozzavalok = [];
+        jQuery('.modal').modal();
   }
 }

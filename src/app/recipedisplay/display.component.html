@@ -3,24 +3,26 @@
         <div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center">
             <h2>{{recipeload.recipename}}
                 <span class="editicon" [routerLink]="['/create',recipeload._id]">&nbsp;<i class="fa fa-pencil" aria-hidden="true"></i></span></h2>
-            <p>(Létrehozva: {{recipeload.createdate}})</p>
+            <p>(Létrehozva: {{recipeload.createdate | amDateFormat:'LL'}})</p>
         </div>
         <div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center">
             <img src="{{recipeload.imagefilename}}" class="img-responsive displayimage img-thumbnail">
             <hr>
         </div>
-        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-            <h3>Hozzávalók:</h3>
-            <ul>
-                <li *ngFor="let item of recipeload.ujhozzavalo">{{item.name}}</li>
-            </ul>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-            <hr>
-            <h3>Elkészítés:</h3>
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+            <div class="col-xs-12 col-sm-4 hozzavalokdiv">
+                <h3>Hozzávalók:</h3>
+                <ul>
+                    <li *ngFor="let item of recipeload.ujhozzavalo">{{item.name}}</li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-8">
+                <h3>Elkészítés:</h3>
 
-            <p [innerHTML]="recipeload.description"></p>
+                <p class="breakline">{{recipeload.description}}</p>
+            </div>
         </div>
+
     </div>
 </div>
 <hr>
