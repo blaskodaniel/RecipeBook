@@ -1,0 +1,32 @@
+#loginbutton {
+    border-radius: 0;
+    padding: 5px 12px;
+}
+
+#signin input.form-control {
+    border-radius: 0;
+}
+
+#signin span.input-group-addon {
+    border-radius: 0;
+}
+
+@media only screen and (max-device-width: 700px) {
+    #signin div.input-group {
+        margin-bottom: 5px;
+    }
+    #signin {
+        margin-bottom: -3px;
+    }
+}
+
+@media (min-width: 768px) {
+    /*
+    #signin div.input-group {
+        margin-bottom: 5px;
+    }
+    #signin div.input-group {
+        width: 95%;
+    }
+    */
+}

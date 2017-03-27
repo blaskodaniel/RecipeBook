@@ -14,8 +14,8 @@ app.use(express.static(path.join(__dirname, '../data')));
 app.use(express.static(path.join(__dirname, '/../../dist')));
 app.use(express.static(path.join(__dirname, '../../uploads')));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.use(morgan('dev'));
 
@@ -36,6 +36,7 @@ mongoose.Promise = global.Promise;
 
 // Models
 var Recipe = require('./../models/food.model');
+var User = require('./../models/user.model');
 
 function MostaniIdo() {
     var d = new Date();
@@ -106,6 +107,28 @@ db.once('open', function() {
         });
     });
 
+    // ---------------------------------------------------------
+    // -------------USERS API Request-------------------------
+    // ---------------------------------------------------------
+    // All users list
+    app.get('/users', function(req, res) {
+        console.log("SZERVER: minden felhasználó lekérése - teszt");
+        User.find({}, function(err, docs) {
+            if (err) return console.error(err);
+            res.json(docs);
+        });
+    });
+
+    // find user by id
+    app.post('/user', function(req, res) {
+        console.log("SZERVER: felhasználó lekérése id alapján - teszt");
+        User.findOne({ _id: req.body.id }, function(err, obj) {
+            if (err) return console.error(err);
+            res.json(obj);
+        })
+    });
+
+
     // all other routes are handled by Angular
     app.get('/*', function(req, res) {
         res.sendFile(path.join(__dirname, '/../../dist/index.html'));
@@ -113,7 +136,7 @@ db.once('open', function() {
     });
 
     app.listen(app.get('port'), function() {
-        console.log('Angular 2 Full Stack listening on port ' + app.get('port'));
+        console.log('Recipebook listening on port ' + app.get('port'));
     });
 });
 

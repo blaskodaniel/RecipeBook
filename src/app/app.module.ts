@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { FilterComponent } from './filter/filter.component';
 import { CreateComponent } from './create/create.component';
 import { DisplayComponent } from './recipedisplay/display.component';
+import { LoginComponent } from './login/login.component';
 
 import {SubStringPipe} from './pipes/substring.pipe';
 
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
     FilterComponent,
     FileSelectDirective,
     DisplayComponent,
+    LoginComponent,
     SubStringPipe
   ],
   imports: [
