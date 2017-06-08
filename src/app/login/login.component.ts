@@ -15,11 +15,15 @@ export class LoginComponent implements OnInit{
     LoginForm: FormGroup;
     username = new FormControl('',Validators.required);
     password = new FormControl('',Validators.required);
-    
+    public loggedIN;
+
     constructor(private http: Http,
-    private dataService: DataService,private formBuilder: FormBuilder){}
+    private dataService: DataService,private formBuilder: FormBuilder){
+        this.loggedIN = true;
+    }
 
      ngOnInit() {
+        this.loggedIN = false;
         this.GetCookie();
         this.LoginForm = this.formBuilder.group({
             username: this.username,
@@ -34,9 +38,11 @@ export class LoginComponent implements OnInit{
                 {
                     var user = JSON.parse(data._body);
                     console.log(user);
+                    this.loggedIN = true;
                 }
                 else{
                     console.log("Rossz felhasználónév vagy jelszó");
+                    this.loggedIN = false;
                 }
                 
             },
@@ -50,9 +56,11 @@ export class LoginComponent implements OnInit{
                 if(data._body != "null")
                 {
                     console.log(data._body);
+                    this.loggedIN = true;
                 }
                 else{
                     console.log("Nincs cookie");
+                    this.loggedIN = false;
                 }
                 
             },

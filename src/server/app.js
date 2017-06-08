@@ -192,7 +192,7 @@ db.once('open', function() {
         var cookie = req.cookies.recipecookie;
 
         if (cookie === undefined) {
-            res.json("Nincs cookie");
+            res.json(null);
         } else {
             console.log("[SZERVER]://Getcookie: " + req.body + ", cookie: " + req.cookies.recipecookie);
             res.json(req.cookies.recipecookie);
