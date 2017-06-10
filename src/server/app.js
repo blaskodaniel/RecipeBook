@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var multer = require('multer');
+var request = require('request-promise');
 var fs = require('fs');
 var morgan = require('morgan'); // logger
 var crypto = require('crypto');
@@ -10,6 +11,7 @@ var cookieParser = require('cookie-parser');
 var app = express();
 app.set('port', (process.env.PORT || 3100));
 var DIR = './uploads';
+// Crypto setup:
 var hashalgorithm = 'aes-256-ctr';
 var hashpassword = 'd6F3Efeq';
 
@@ -83,6 +85,22 @@ function decrypt(text) {
     return dec;
 }
 
+async function GetUser(username, password) {
+    var body = await User.findOne({ username: username, password: password }, function(err, obj) {
+        if (err) {
+            return console.error(err);
+        } else {
+            if (obj === null) {
+                console.log("[GetUser]Rossz felhasználónév vagy jelszó");
+            } else {
+                console.log("[GetUser]Létező felhasználó");
+            }
+        }
+
+    })
+    return body;
+}
+
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     console.log('Connected to MongoDB');
@@ -106,7 +124,6 @@ db.once('open', function() {
 
     // create
     app.post('/newrecipe', function(req, res) {
-
         var obj = new Recipe(req.body);
         console.log("SZERVER: új recept hozzáadás: " + obj);
         obj.save(function(err, obj) {
@@ -179,7 +196,7 @@ db.once('open', function() {
                     console.log("Rossz felhasználónév vagy jelszó");
                 } else {
                     console.log("Létező felhasználó");
-                    var hw = encrypt(user0.username + user0.password);
+                    var hw = encrypt(user0.username + "" + user0.password + "" + obj.salt);
                     res.cookie('recipecookie', hw, { expire: 360000 + Date.now(), httpOnly: true });
                 }
                 res.json(obj);
@@ -190,12 +207,26 @@ db.once('open', function() {
 
     app.post('/getcookie', function(req, res) {
         var cookie = req.cookies.recipecookie;
-
         if (cookie === undefined) {
             res.json(null);
         } else {
-            console.log("[SZERVER]://Getcookie: " + req.body + ", cookie: " + req.cookies.recipecookie);
-            res.json(req.cookies.recipecookie);
+            var decryptstr = decrypt(req.cookies.recipecookie);
+            console.log("[SZERVER]://Getcookie: cookie: " +
+                req.cookies.recipecookie + " -- decrypt --> " + decryptstr);
+            User.findOne({ encryptrstr: decryptstr }, function(err, obj) {
+                if (err) {
+                    return console.error(err);
+                } else {
+                    if (obj === null) {
+                        console.log("[SZERVER]://Getcookie: nincs ilyen cookie hash: " + decryptstr);
+                    } else {
+                        console.log("[SZERVER]://Getcookie: Létező felhasználó: " + obj);
+                    }
+                    res.json(obj.name);
+                }
+
+            })
+
         }
 
     });

@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { DataService } from './services/data.service';
+import { Globalservice } from './services/global.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import {MomentModule} from 'angular2-moment';
@@ -57,7 +58,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpModule
   ],
-  providers: [DataService],
+  providers: [DataService,Globalservice],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

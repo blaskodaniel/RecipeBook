@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder }  from '@angular/forms';
 import { DataService } from '../services/data.service';
+import { Globalservice } from '../services/global.service';
 
 @Component({
     selector: 'login',
@@ -15,11 +16,14 @@ export class LoginComponent implements OnInit{
     LoginForm: FormGroup;
     username = new FormControl('',Validators.required);
     password = new FormControl('',Validators.required);
-    public loggedIN;
+    public loggedIN:boolean;
+    public userobject:any;
 
     constructor(private http: Http,
-    private dataService: DataService,private formBuilder: FormBuilder){
-        this.loggedIN = true;
+    private dataService: DataService,
+    private formBuilder: FormBuilder,
+    private Globalservice: Globalservice){
+
     }
 
      ngOnInit() {
@@ -38,6 +42,7 @@ export class LoginComponent implements OnInit{
                 {
                     var user = JSON.parse(data._body);
                     console.log(user);
+                    this.userobject = user.name;
                     this.loggedIN = true;
                 }
                 else{
@@ -56,6 +61,8 @@ export class LoginComponent implements OnInit{
                 if(data._body != "null")
                 {
                     console.log(data._body);
+                    console.log(this.Globalservice.session);
+                    this.userobject = data._body.replace(/['"]+/g, '');
                     this.loggedIN = true;
                 }
                 else{

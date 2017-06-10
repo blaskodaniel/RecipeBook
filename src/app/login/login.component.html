@@ -1,18 +1,20 @@
-<form id="signin" [formGroup]="LoginForm" (ngSubmit)="Login()" class="navbar-form navbar-right ng-cloak" role="form" *ngIf="!loggedIN">
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input id="username" type="text" class="form-control" name="username" value="" placeholder="Felhasználónév" formControlName="username" required>
-    </div>
+<div *ngIf="!loggedIN">
+    <form id="signin" [formGroup]="LoginForm" (ngSubmit)="Login()" class="navbar-form navbar-right" role="form">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input id="username" type="text" class="form-control" name="username" value="" placeholder="Felhasználónév" formControlName="username" required>
+        </div>
 
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-        <input id="password" type="password" class="form-control" name="password" value="" placeholder="Jelszó" formControlName="password" required>
-    </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input id="password" type="password" class="form-control" name="password" value="" placeholder="Jelszó" formControlName="password" required>
+        </div>
 
-    <button type="submit" id="loginbutton" class="btn btn-primary">Bejelentkezés</button>
-</form>
+        <button type="submit" id="loginbutton" class="btn btn-primary">Bejelentkezés</button>
+    </form>
+</div>
 <div class="navbar-form navbar-right" *ngIf="loggedIN">
     <div class="input-group">
-        <p>Bejelentkezve</p>
+        <p>Bejelentkezve: {{userobject}}</p>
     </div>
 </div>
