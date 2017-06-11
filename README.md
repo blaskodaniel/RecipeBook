@@ -18,7 +18,6 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 Before build set the following: http://myurl.com/ instead of http://localhost:3000/
 - src/app/create/create.components.ts => const uploadURL = 'http://myurl.com/upload';
 - server/app.js => res.header("Access-Control-Allow-Origin", "http://myurl.com/");
-- app.module.ts --> import { DisplayComponent } from './recipedisplay/display.component';
 
 
 Ideas (for design):
